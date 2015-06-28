@@ -62,7 +62,7 @@ bool App::ConfigureRenderingEngineComponents( UINT width, UINT height, D3D_FEATU
 
 	// Create the window wrapper class instance.
 	m_pWindow = CreateRenderWindow();
-	m_pWindow->SetPosition( 20, 20 );
+	m_pWindow->SetPosition( 0, 0 );
 	m_pWindow->SetSize( m_iWidth, m_iHeight );
 	m_pWindow->SetCaption( GetName() );
 	m_pWindow->Initialize( this );
