@@ -43,11 +43,11 @@ namespace Glyph3
 
 		void ConfigureRendering( const ResourcePtr& renderTarget, int swapchain );
 		void ConfigureEyeTexture( unsigned int eye, const ResourcePtr& texture );
-		void ReadEyeData();
+		//void ReadEyeData();
 
 		Matrix3f GetOrientation( double time );
 		Matrix4f GetPerspectiveFov( unsigned int eye, float zn, float zf );
-		Matrix4f GetEyeTranslation( unsigned int eye );
+		//Matrix4f GetEyeTranslation( unsigned int eye );
 		Matrix4f GetEyeSpatialState( unsigned int eye );
 
 		float BeginFrame();

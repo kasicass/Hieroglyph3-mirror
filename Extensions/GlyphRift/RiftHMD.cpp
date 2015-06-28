@@ -117,6 +117,7 @@ struct RiftHMD::Impl
 		return max( tex0Size.h, tex1Size.h );
 	}
 	//--------------------------------------------------------------------------------
+	/*
 	void ReadEyeData()
 	{
 		// Grab the two eye offsets in a contiguous array.
@@ -131,6 +132,7 @@ struct RiftHMD::Impl
 		ovrTrackingState ts;
 		ovrHmd_GetEyePoses( m_hmd, frame, offsets, eyePose, &ts );
 	}
+	*/
 	//--------------------------------------------------------------------------------
 	Matrix3f GetOrientation( double time )
 	{
@@ -196,12 +198,14 @@ struct RiftHMD::Impl
 		return p;
 	}
 	//--------------------------------------------------------------------------------
+	/*
 	Matrix4f GetEyeTranslation( unsigned int eye )
 	{
 		return Matrix4f::TranslationMatrix( eyeRenderDesc[eye].HmdToEyeViewOffset.x,
 											eyeRenderDesc[eye].HmdToEyeViewOffset.y,
 											eyeRenderDesc[eye].HmdToEyeViewOffset.z );
 	}
+	*/
 	//--------------------------------------------------------------------------------
 	Matrix4f GetEyeSpatialState( unsigned int eye )
 	{
@@ -209,8 +213,8 @@ struct RiftHMD::Impl
 		// pose is read out from the API using RiftHMD::ReadEyeData() which collects
 		// the information for both eyes simultaneously.
 
-		//eyePose[eye] = ovrHmd_GetEyePose( m_hmd, static_cast<ovrEyeType>(eye) );
-		ReadEyeData();
+		eyePose[eye] = ovrHmd_GetEyePose( m_hmd, static_cast<ovrEyeType>(eye) );
+		//ReadEyeData();
 
 		float yaw, eyePitch, eyeRoll = 0.0f;
 		OVR::Posef pose = eyePose[eye];
@@ -254,7 +258,8 @@ struct RiftHMD::Impl
 
 		ovrD3D11Config cfg;
 		cfg.D3D11.Header.API = ovrRenderAPI_D3D11;
-		cfg.D3D11.Header.BackBufferSize = size;
+		//cfg.D3D11.Header.BackBufferSize = size;
+		cfg.D3D11.Header.RTSize = size;
 		cfg.D3D11.Header.Multisample = 1;
 		cfg.D3D11.pDevice = RendererDX11::Get()->GetDevice();
 		cfg.D3D11.pDeviceContext = RendererDX11::Get()->pImmPipeline->GetDeviceContext();
@@ -334,10 +339,12 @@ unsigned int RiftHMD::DesiredEyeTextureHeight()
 	return m_pImpl->DesiredEyeTextureHeight();
 }
 //--------------------------------------------------------------------------------
+/*
 void RiftHMD::ReadEyeData()
 {
 	return m_pImpl->ReadEyeData();
 }
+*/
 //--------------------------------------------------------------------------------
 Matrix3f RiftHMD::GetOrientation( double time )
 {
@@ -349,10 +356,12 @@ Matrix4f RiftHMD::GetPerspectiveFov( unsigned int eye, float zn, float zf  )
 	return m_pImpl->GetPerspectiveFov( eye, zn, zf );
 }
 //--------------------------------------------------------------------------------
+/*
 Matrix4f RiftHMD::GetEyeTranslation( unsigned int eye )
 {
 	return m_pImpl->GetEyeTranslation( eye );
 }
+*/
 //--------------------------------------------------------------------------------
 Matrix4f RiftHMD::GetEyeSpatialState( unsigned int eye )
 {
